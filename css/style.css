@@ -33,7 +33,7 @@ header .logo {
 /* Grid */
 
 main {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 80px - 50px);
 }
 
 #grid {
@@ -69,4 +69,18 @@ main {
 .square.active {
     background-color: white;
     color: #111;
+}
+
+.square.bomb {
+    background-color: darkred;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-color: white;
 }

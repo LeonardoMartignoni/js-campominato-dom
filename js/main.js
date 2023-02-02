@@ -1,6 +1,3 @@
-// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
-// Attenzione: nella stessa cella può essere posizionata al massimo una bomba, perciò nell'array delle bombe non potranno esserci due numeri uguali.
-// In seguito l'utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina. Altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
 // La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non sono bombe).
 
 
@@ -13,6 +10,9 @@ const errorText = document.getElementById('error_text');
 // Prendo la #grid nell'HTML
 const gridElement = document.getElementById('grid');
 
+// Prendo il punteggio dall'HTML
+const gameScore = document.getElementById('game_score');
+
 buttonPlay.addEventListener('click', function () {
 
     // Prendo il valore della difficoltà
@@ -21,6 +21,9 @@ buttonPlay.addEventListener('click', function () {
     // Inizializzo le variabili per la griglia
     let gridDimension = 0;
     let squareClass = '';
+
+    // Resetto il paragrafo del punteggio
+    gameScore.innerHTML = '';
 
     // Difficoltà facile
     if (getDifficultyLevel == 'easy') {
@@ -51,8 +54,13 @@ buttonPlay.addEventListener('click', function () {
         errorText.innerHTML = 'Error. Please select a level';
     }
 
+    // Invoco la funzione per generare le bombe
+    const bombsGenerated = generateBombs(gridDimension);
+
+    console.log(bombsGenerated);
+
     // Invoco la funzione
-    generateGrid(gridElement, gridDimension, squareClass);
+    generateGrid(gridElement, gridDimension, squareClass, bombsGenerated, gameScore);
 
 })
 
@@ -65,8 +73,10 @@ buttonPlay.addEventListener('click', function () {
  */
 
 // Creo una funzione per generare una griglia
-function generateGrid(grid, dimension, cellclass) {
+function generateGrid(grid, dimension, cellclass, bombs, score) {
 
+
+    gamePoints = 0;
     let squareGrid;
 
     // Creo un ciclo che si ripete per la dimensione della griglia, così da metterci gli square
@@ -82,11 +92,22 @@ function generateGrid(grid, dimension, cellclass) {
 
         // Creo un event listener quando si clicca su un quadrato
         squareGrid.addEventListener('click', function () {
-            this.classList.toggle('active');
 
             // Stampo un log con il numero della cella cliccata
             const squareNumber = this.innerHTML;
             console.log(squareNumber + ' cell clicked');
+
+            // Se l'utente ha cliccato su una bomba aggiungo la classe .bomb
+            if (bombs.includes(parseInt(squareNumber))) {
+                this.classList.add('bomb')
+                score.innerHTML = 'You lost! Your score is: ' + gamePoints;
+            }
+
+            // Altrimenti aggiungo la classe .active
+            else {
+                this.classList.add('active');
+                gamePoints += 1;
+            }
 
         })
     }
