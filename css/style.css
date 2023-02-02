@@ -1,0 +1,72 @@
+body {
+    background-color: #111;
+    height: 100vh;
+}
+
+/* Header */
+
+header {
+    display: flex;
+    background-color: white;
+}
+
+header .logo {
+    height: 60px;
+}
+
+/* Right Header */
+
+#difficulty_level {
+    text-align: left;
+    height: 2.5rem;
+}
+
+#button_play {
+    height: 2.5rem;
+}
+
+#error_text {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+}
+
+/* Grid */
+
+main {
+    height: calc(100vh - 80px);
+}
+
+#grid {
+    width: 800px;
+    height: 90%;
+    border: 1px solid white;
+}
+
+.square.easy {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+.square.normal {
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.square.hard {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+}
+
+.square.active {
+    background-color: white;
+    color: #111;
+}
